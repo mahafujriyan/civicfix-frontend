@@ -30,6 +30,16 @@ export function useComplaints(query: ComplaintListQuery = {}) {
   })
 }
 
+export function useComplaintTotal(query: ComplaintListQuery = {}) {
+  const listQuery: ComplaintListQuery = { ...query, page: 1, limit: 1 }
+
+  return useQuery({
+    queryKey: queryKeys.complaints(listQuery),
+    queryFn: () => listComplaints(listQuery),
+    select: (page) => page.meta.total,
+  })
+}
+
 export function useComplaint(id: string) {
   return useQuery({
     queryKey: queryKeys.complaint(id),

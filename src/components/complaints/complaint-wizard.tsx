@@ -42,7 +42,6 @@ export function ComplaintWizard() {
   })
 
   const step = draft.step
-  const values = form.watch()
 
   function remember(nextStep: number) {
     const current = form.getValues()
@@ -179,21 +178,21 @@ export function ComplaintWizard() {
           <dl className="grid gap-3 text-sm">
             <div>
               <dt className="text-muted-foreground">Title</dt>
-              <dd>{values.title}</dd>
+              <dd>{draft.title}</dd>
             </div>
             <div>
               <dt className="text-muted-foreground">Description</dt>
-              <dd>{values.description}</dd>
+              <dd>{draft.description}</dd>
             </div>
             <div>
               <dt className="text-muted-foreground">Priority</dt>
-              <dd>{humanizeToken(values.priority)}</dd>
+              <dd>{humanizeToken(draft.priority)}</dd>
             </div>
             <div>
               <dt className="text-muted-foreground">Location</dt>
               <dd>
-                {values.address}, {values.city}
-                {values.area ? `, ${values.area}` : ""}
+                {draft.address}, {draft.city}
+                {draft.area ? `, ${draft.area}` : ""}
               </dd>
             </div>
           </dl>

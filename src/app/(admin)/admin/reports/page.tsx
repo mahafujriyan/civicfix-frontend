@@ -2,14 +2,14 @@ import { AdminReports } from "@/components/analytics/admin-reports"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Admin",
+  title: "Reports",
 }
 
-export default function AdminHomePage() {
+export default function AdminReportsPage() {
   return (
     <AdminReports
-      title="City operations"
-      description="Totals and charts come from the admin analytics endpoints."
+      title="Reports"
+      description="Status, priority, and category breakdowns from GET /analytics/complaints."
     />
   )
 }

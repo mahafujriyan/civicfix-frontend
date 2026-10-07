@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CivicFix frontend
 
-## Getting Started
+CivicFix is the city complaint and service interface for the Programming Hero B7A7 frontend assignment. It talks to the B7A6 API. Core records are not mocked.
 
-First, run the development server:
+## Scripts
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run lint
+npx tsc --noEmit
+npm run build
+npm test
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Copy `.env.example` to `.env.local` and set:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `NEXT_PUBLIC_API_URL` — API base, including `/api/v1`
+- `NEXT_PUBLIC_APP_URL` — this site, used for metadata
+- `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` — Stripe test publishable key
+- `NEXT_PUBLIC_GOOGLE_CLIENT_ID` — optional; Google sign-in stays disabled until it is set
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The backend must point `STRIPE_SUCCESS_URL` at `/payment/success` and `STRIPE_CANCEL_URL` at `/payment/cancel` on this site.
 
-## Learn More
+## Roles
 
-To learn more about Next.js, take a look at the following resources:
+| Role | Home |
+|---|---|
+| Citizen | `/dashboard` |
+| Staff | `/staff` |
+| Admin | `/admin` |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Signed-out visits to those areas go to `/login`. The wrong role goes to `/unauthorized`. Route checks are UX only. The API still authorizes every request.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Demo sign-in buttons use the backend seed accounts and call `POST /auth/login`.
 
-## Deploy on Vercel
+## Payments
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Checkout calls `POST /payments/create-session` and redirects to the Stripe URL the API returns. Success and cancel pages then call `GET /payments/{id}`. The browser never marks a payment paid.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+There is no payment-list endpoint, so the payments page looks up one payment id. There is no staff analytics endpoint, so staff workload counts come from the complaints assigned to that account. User search has no `isActive` query, so activation is a row action. There is no contact endpoint, so the contact form validates locally and does not claim the message was stored.
+
+## Deploy
+
+```bash
+npm run build
+npm start
+```
+
+Set the same public environment variables in the host. Do not commit `.env.local`.

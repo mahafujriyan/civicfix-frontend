@@ -18,7 +18,7 @@ import {
   type PaymentLookupValues,
 } from "@/schemas/payment"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useEffect, useState } from "react"
+import { useState, useSyncExternalStore } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 
@@ -179,6 +179,18 @@ export function PaymentCard({ id }: { id: string }) {
   )
 }
 
+function subscribeRememberedPayment(): () => void {
+  return () => undefined
+}
+
+function readRememberedSnapshot(): string {
+  return readRememberedPaymentId() ?? ""
+}
+
+function emptyPaymentSnapshot(): string {
+  return ""
+}
+
 export function PaymentResult({
   title,
   description,
@@ -186,15 +198,14 @@ export function PaymentResult({
   title: string
   description: string
 }) {
-  const [paymentId, setPaymentId] = useState("")
+  const remembered = useSyncExternalStore(
+    subscribeRememberedPayment,
+    readRememberedSnapshot,
+    emptyPaymentSnapshot,
+  )
+  const [overrideId, setOverrideId] = useState<string | null>(null)
+  const paymentId = overrideId ?? remembered
   const payment = usePayment(paymentId)
-
-  useEffect(() => {
-    const remembered = readRememberedPaymentId()
-    if (remembered) {
-      setPaymentId(remembered)
-    }
-  }, [])
 
   return (
     <div className="mx-auto flex w-full max-w-xl flex-col gap-6 px-4 py-16">
@@ -212,7 +223,7 @@ export function PaymentResult({
             event.preventDefault()
             const data = new FormData(event.currentTarget)
             const value = String(data.get("paymentId") ?? "")
-            setPaymentId(value)
+            setOverrideId(value)
           }}
         >
           <FormField label="Payment id" htmlFor="result-payment-id" required>

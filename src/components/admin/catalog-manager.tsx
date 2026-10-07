@@ -36,7 +36,7 @@ import {
 import type { Category, Department } from "@/types/domain"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useSearchParams } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 
@@ -126,21 +126,32 @@ function CatalogForm({
   const updateCategory = useUpdateCategory(editing?.id ?? "")
   const departmentForm = useForm<DepartmentFormValues>({
     resolver: zodResolver(departmentSchema),
-    values: {
-      name: editing?.name ?? "",
-      description: editing?.description ?? "",
-      isActive: editing?.isActive ?? true,
-    },
+    defaultValues: { name: "", description: "", isActive: true },
   })
   const categoryForm = useForm<CategoryFormValues>({
     resolver: zodResolver(categorySchema),
-    values: {
+    defaultValues: {
+      name: "",
+      description: "",
+      isActive: true,
+      departmentId: "",
+    },
+  })
+
+  useEffect(() => {
+    departmentForm.reset({
       name: editing?.name ?? "",
       description: editing?.description ?? "",
       isActive: editing?.isActive ?? true,
-      departmentId: editing && "departmentId" in editing ? (editing.departmentId ?? "") : "",
-    },
-  })
+    })
+    categoryForm.reset({
+      name: editing?.name ?? "",
+      description: editing?.description ?? "",
+      isActive: editing?.isActive ?? true,
+      departmentId:
+        editing && "departmentId" in editing ? (editing.departmentId ?? "") : "",
+    })
+  }, [categoryForm, departmentForm, editing])
 
   const pending =
     createDepartment.isPending ||

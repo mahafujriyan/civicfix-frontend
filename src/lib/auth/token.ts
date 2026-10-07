@@ -1,7 +1,23 @@
+import {
+  ACCESS_TOKEN_COOKIE,
+  ACCESS_TOKEN_MAX_AGE_SECONDS,
+} from "@/lib/auth/access-token"
+
 const ACCESS_TOKEN_KEY = "civicfix.accessToken"
 
 function canUseStorage(): boolean {
   return typeof window !== "undefined"
+}
+
+function readCookieToken(): string | null {
+  const prefix = `${ACCESS_TOKEN_COOKIE}=`
+  const parts = document.cookie.split("; ")
+  const match = parts.find((part) => part.startsWith(prefix))
+  if (!match) {
+    return null
+  }
+
+  return decodeURIComponent(match.slice(prefix.length))
 }
 
 export function getAccessToken(): string | null {
@@ -9,7 +25,7 @@ export function getAccessToken(): string | null {
     return null
   }
 
-  return window.localStorage.getItem(ACCESS_TOKEN_KEY)
+  return window.localStorage.getItem(ACCESS_TOKEN_KEY) ?? readCookieToken()
 }
 
 export function setAccessToken(token: string): void {
@@ -18,6 +34,8 @@ export function setAccessToken(token: string): void {
   }
 
   window.localStorage.setItem(ACCESS_TOKEN_KEY, token)
+  const secure = window.location.protocol === "https:" ? "; Secure" : ""
+  document.cookie = `${ACCESS_TOKEN_COOKIE}=${encodeURIComponent(token)}; Path=/; Max-Age=${ACCESS_TOKEN_MAX_AGE_SECONDS}; SameSite=Lax${secure}`
 }
 
 export function clearAccessToken(): void {
@@ -26,6 +44,7 @@ export function clearAccessToken(): void {
   }
 
   window.localStorage.removeItem(ACCESS_TOKEN_KEY)
+  document.cookie = `${ACCESS_TOKEN_COOKIE}=; Path=/; Max-Age=0; SameSite=Lax`
 }
 
 export function hasAccessToken(): boolean {

@@ -1,6 +1,7 @@
 "use client"
 
 import { Toaster } from "@/components/ui/sonner"
+import { QueryProvider } from "@/providers/query-provider"
 import { ThemeProvider } from "@/providers/theme-provider"
 import type { ReactNode } from "react"
 
@@ -10,9 +11,11 @@ type AppProvidersProps = {
 
 export function AppProviders({ children }: AppProvidersProps) {
   return (
-    <ThemeProvider>
-      {children}
-      <Toaster position="top-right" closeButton />
-    </ThemeProvider>
+    <QueryProvider>
+      <ThemeProvider>
+        {children}
+        <Toaster position="top-right" closeButton />
+      </ThemeProvider>
+    </QueryProvider>
   )
 }

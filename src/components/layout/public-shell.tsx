@@ -21,7 +21,10 @@ export function PublicShell({ children }: PublicShellProps) {
           <Link href="/" className="font-heading text-2xl tracking-tight">
             CivicFix
           </Link>
-          <nav aria-label="Public" className="hidden items-center gap-5 md:flex">
+          <nav
+            aria-label="Public"
+            className="hidden items-center gap-5 md:flex"
+          >
             {links.map((link) => (
               <Link
                 key={link.href}

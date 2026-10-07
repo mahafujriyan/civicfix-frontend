@@ -29,11 +29,26 @@ export default function HomePage() {
         </div>
         <ol className="grid gap-3">
           {[
-            ["1", "Submit", "Title, description, category, priority, and location."],
-            ["2", "Track", "Status history from submitted through resolved or closed."],
-            ["3", "Respond", "Staff comments and status changes stay on the complaint."],
+            [
+              "1",
+              "Submit",
+              "Title, description, category, priority, and location.",
+            ],
+            [
+              "2",
+              "Track",
+              "Status history from submitted through resolved or closed.",
+            ],
+            [
+              "3",
+              "Respond",
+              "Staff comments and status changes stay on the complaint.",
+            ],
           ].map(([step, title, copy]) => (
-            <li key={step} className="bg-card ring-foreground/10 rounded-2xl p-5 ring-1">
+            <li
+              key={step}
+              className="bg-card ring-foreground/10 rounded-2xl p-5 ring-1"
+            >
               <p className="text-primary text-sm font-medium">Step {step}</p>
               <h2 className="font-heading mt-1 text-2xl">{title}</h2>
               <p className="text-muted-foreground mt-2 text-sm">{copy}</p>

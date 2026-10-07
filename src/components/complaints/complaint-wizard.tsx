@@ -108,7 +108,12 @@ export function ComplaintWizard() {
       >
         {step === 0 ? (
           <>
-            <FormField label="Title" htmlFor="title" required error={form.formState.errors.title?.message}>
+            <FormField
+              label="Title"
+              htmlFor="title"
+              required
+              error={form.formState.errors.title?.message}
+            >
               <Input id="title" {...form.register("title")} />
             </FormField>
             <FormField
@@ -143,7 +148,10 @@ export function ComplaintWizard() {
           >
             {categories.isError ? (
               <ErrorState
-                description={errorMessage(categories.error, "Categories could not be loaded.")}
+                description={errorMessage(
+                  categories.error,
+                  "Categories could not be loaded.",
+                )}
               />
             ) : (
               <select
@@ -163,13 +171,28 @@ export function ComplaintWizard() {
         ) : null}
         {step === 2 ? (
           <>
-            <FormField label="Address" htmlFor="address" required error={form.formState.errors.address?.message}>
+            <FormField
+              label="Address"
+              htmlFor="address"
+              required
+              error={form.formState.errors.address?.message}
+            >
               <Input id="address" {...form.register("address")} />
             </FormField>
-            <FormField label="City" htmlFor="city" required error={form.formState.errors.city?.message}>
+            <FormField
+              label="City"
+              htmlFor="city"
+              required
+              error={form.formState.errors.city?.message}
+            >
               <Input id="city" {...form.register("city")} />
             </FormField>
-            <FormField label="Area" htmlFor="area" hint="Optional" error={form.formState.errors.area?.message}>
+            <FormField
+              label="Area"
+              htmlFor="area"
+              hint="Optional"
+              error={form.formState.errors.area?.message}
+            >
               <Input id="area" {...form.register("area")} />
             </FormField>
           </>
@@ -199,7 +222,11 @@ export function ComplaintWizard() {
         ) : null}
         <div className="flex flex-wrap gap-2">
           {step > 0 ? (
-            <Button type="button" variant="outline" onClick={() => remember(step - 1)}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => remember(step - 1)}
+            >
               Back
             </Button>
           ) : null}

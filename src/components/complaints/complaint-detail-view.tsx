@@ -86,7 +86,10 @@ export function ComplaintDetailView({
   if (complaint.isError || !complaint.data) {
     return (
       <ErrorState
-        description={errorMessage(complaint.error, "This complaint could not be loaded.")}
+        description={errorMessage(
+          complaint.error,
+          "This complaint could not be loaded.",
+        )}
         action={
           <Button asChild>
             <Link href={listHref}>Back to complaints</Link>
@@ -155,12 +158,18 @@ export function ComplaintDetailView({
             </div>
           </dl>
           {role === "CITIZEN" && record.status === "SUBMITTED" ? (
-            <Button variant="destructive" onClick={() => setConfirmDelete(true)}>
+            <Button
+              variant="destructive"
+              onClick={() => setConfirmDelete(true)}
+            >
               Delete complaint
             </Button>
           ) : null}
           {role === "ADMIN" ? (
-            <Button variant="destructive" onClick={() => setConfirmDelete(true)}>
+            <Button
+              variant="destructive"
+              onClick={() => setConfirmDelete(true)}
+            >
               Delete complaint
             </Button>
           ) : null}
@@ -187,7 +196,11 @@ export function ComplaintDetailView({
                   <Button
                     key={status}
                     type="button"
-                    variant={status === "CANCELLED" || status === "REJECTED" ? "destructive" : "default"}
+                    variant={
+                      status === "CANCELLED" || status === "REJECTED"
+                        ? "destructive"
+                        : "default"
+                    }
                     disabled={updateStatus.isPending}
                     onClick={() => void changeStatus(status)}
                   >
@@ -257,7 +270,9 @@ export function ComplaintDetailView({
           {history.data?.map((entry) => (
             <li key={entry.id} className="border-l-primary/40 border-l-2 pl-4">
               <p className="text-sm font-medium">
-                {entry.fromStatus ? `${humanizeToken(entry.fromStatus)} → ` : ""}
+                {entry.fromStatus
+                  ? `${humanizeToken(entry.fromStatus)} → `
+                  : ""}
                 {humanizeToken(entry.toStatus)}
               </p>
               <p className="text-muted-foreground text-xs">
@@ -277,7 +292,8 @@ export function ComplaintDetailView({
               <p className="text-sm">{comment.content}</p>
               <p className="text-muted-foreground mt-1 text-xs">
                 {comment.author.fullName} · {humanizeToken(comment.author.role)}
-                {comment.isInternal ? " · Internal" : ""} · {formatWhen(comment.createdAt)}
+                {comment.isInternal ? " · Internal" : ""} ·{" "}
+                {formatWhen(comment.createdAt)}
               </p>
             </li>
           ))}
@@ -325,7 +341,9 @@ export function ComplaintDetailView({
             {feedback.data.comment ? ` — ${feedback.data.comment}` : ""}
           </p>
         ) : null}
-        {feedbackMissing && role === "CITIZEN" && (record.status === "RESOLVED" || record.status === "CLOSED") ? (
+        {feedbackMissing &&
+        role === "CITIZEN" &&
+        (record.status === "RESOLVED" || record.status === "CLOSED") ? (
           <form
             className="mt-4 flex flex-col gap-3"
             onSubmit={feedbackForm.handleSubmit(async (values) => {
@@ -350,7 +368,10 @@ export function ComplaintDetailView({
               />
             </FormField>
             <FormField label="Comment" htmlFor="feedback-comment">
-              <Textarea id="feedback-comment" {...feedbackForm.register("comment")} />
+              <Textarea
+                id="feedback-comment"
+                {...feedbackForm.register("comment")}
+              />
             </FormField>
             <Button type="submit" disabled={submitFeedback.isPending}>
               {submitFeedback.isPending ? "Sending..." : "Submit feedback"}
@@ -371,12 +392,15 @@ export function ComplaintDetailView({
         pending={remove.isPending}
         confirmLabel="Delete"
         onConfirm={() => {
-          void remove.mutateAsync(id).then(() => {
-            toast.success("Complaint deleted")
-            router.push(listHref)
-          }).catch((error: unknown) => {
-            toast.error(errorMessage(error, "Delete failed"))
-          })
+          void remove
+            .mutateAsync(id)
+            .then(() => {
+              toast.success("Complaint deleted")
+              router.push(listHref)
+            })
+            .catch((error: unknown) => {
+              toast.error(errorMessage(error, "Delete failed"))
+            })
         }}
       />
     </div>

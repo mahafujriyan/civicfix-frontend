@@ -1,9 +1,6 @@
 import type { ComplaintListQuery } from "@/lib/api/complaints"
 import type { UserListQuery } from "@/lib/api/users"
-import {
-  COMPLAINT_STATUSES,
-  PRIORITIES,
-} from "@/lib/complaints/workflow"
+import { COMPLAINT_STATUSES, PRIORITIES } from "@/lib/complaints/workflow"
 import type {
   ComplaintStatus,
   Priority,
@@ -22,7 +19,10 @@ const complaintSorts = [
 const userSorts = ["createdAt", "fullName", "email"] as const
 const roles = ["CITIZEN", "STAFF", "ADMIN"] as const
 
-export function parsePositiveInt(value: string | null, fallback: number): number {
+export function parsePositiveInt(
+  value: string | null,
+  fallback: number,
+): number {
   if (!value) {
     return fallback
   }
@@ -50,7 +50,8 @@ export function parseComplaintQuery(
   params: Pick<URLSearchParams, "get">,
 ): ComplaintListQuery {
   const sortBy = oneOf(params.get("sortBy"), complaintSorts) ?? "createdAt"
-  const sortOrder = oneOf<SortOrder>(params.get("sortOrder"), ["asc", "desc"]) ?? "desc"
+  const sortOrder =
+    oneOf<SortOrder>(params.get("sortOrder"), ["asc", "desc"]) ?? "desc"
 
   return {
     page: parsePositiveInt(params.get("page"), 1),

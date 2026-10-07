@@ -17,13 +17,17 @@ export default function AboutPage() {
         />
         <div className="flex flex-col gap-4 text-sm leading-6">
           <p>
-            A citizen account can file a complaint, follow its status history, leave a comment, and submit feedback after it is resolved or closed.
+            A citizen account can file a complaint, follow its status history,
+            leave a comment, and submit feedback after it is resolved or closed.
           </p>
           <p>
-            A staff account sees only complaints assigned to that person, and can move those complaints to in progress or resolved when the workflow allows it.
+            A staff account sees only complaints assigned to that person, and
+            can move those complaints to in progress or resolved when the
+            workflow allows it.
           </p>
           <p>
-            An administrator manages users, departments, categories, assignments, and the city-wide analytics returned by the API.
+            An administrator manages users, departments, categories,
+            assignments, and the city-wide analytics returned by the API.
           </p>
         </div>
       </div>

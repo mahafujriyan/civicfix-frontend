@@ -67,7 +67,9 @@ export function CatalogManager({ mode }: { mode: CatalogMode }) {
         onSaved={() => setEditing(null)}
       />
       <FilterBar
-        action={mode === "department" ? "/admin/departments" : "/admin/categories"}
+        action={
+          mode === "department" ? "/admin/departments" : "/admin/categories"
+        }
         label="Catalog search"
       >
         <SearchInput defaultValue={search ?? ""} placeholder="Search by name" />
@@ -75,7 +77,9 @@ export function CatalogManager({ mode }: { mode: CatalogMode }) {
       </FilterBar>
       {list.isLoading ? <TableSkeleton /> : null}
       {list.isError ? (
-        <ErrorState description={errorMessage(list.error, "Records could not be loaded.")} />
+        <ErrorState
+          description={errorMessage(list.error, "Records could not be loaded.")}
+        />
       ) : null}
       {list.data ? (
         <>
@@ -90,7 +94,9 @@ export function CatalogManager({ mode }: { mode: CatalogMode }) {
             pageCount={list.data.meta.totalPages}
             hrefForPage={(nextPage) =>
               hrefWithParams(
-                mode === "department" ? "/admin/departments" : "/admin/categories",
+                mode === "department"
+                  ? "/admin/departments"
+                  : "/admin/categories",
                 searchParams,
                 { page: String(nextPage) },
               )
@@ -149,7 +155,9 @@ function CatalogForm({
       description: editing?.description ?? "",
       isActive: editing?.isActive ?? true,
       departmentId:
-        editing && "departmentId" in editing ? (editing.departmentId ?? "") : "",
+        editing && "departmentId" in editing
+          ? (editing.departmentId ?? "")
+          : "",
     })
   }, [categoryForm, departmentForm, editing])
 
@@ -183,11 +191,19 @@ function CatalogForm({
           }
         })}
       >
-        <FormField label="Name" htmlFor="department-name" required error={departmentForm.formState.errors.name?.message}>
+        <FormField
+          label="Name"
+          htmlFor="department-name"
+          required
+          error={departmentForm.formState.errors.name?.message}
+        >
           <Input id="department-name" {...departmentForm.register("name")} />
         </FormField>
         <FormField label="Description" htmlFor="department-description">
-          <Textarea id="department-description" {...departmentForm.register("description")} />
+          <Textarea
+            id="department-description"
+            {...departmentForm.register("description")}
+          />
         </FormField>
         <label className="flex items-center gap-2 text-sm">
           <input type="checkbox" {...departmentForm.register("isActive")} />
@@ -233,7 +249,12 @@ function CatalogForm({
         }
       })}
     >
-      <FormField label="Name" htmlFor="category-name" required error={categoryForm.formState.errors.name?.message}>
+      <FormField
+        label="Name"
+        htmlFor="category-name"
+        required
+        error={categoryForm.formState.errors.name?.message}
+      >
         <Input id="category-name" {...categoryForm.register("name")} />
       </FormField>
       <FormField label="Department" htmlFor="category-department">
@@ -251,7 +272,10 @@ function CatalogForm({
         </select>
       </FormField>
       <FormField label="Description" htmlFor="category-description">
-        <Textarea id="category-description" {...categoryForm.register("description")} />
+        <Textarea
+          id="category-description"
+          {...categoryForm.register("description")}
+        />
       </FormField>
       <label className="flex items-center gap-2 text-sm">
         <input type="checkbox" {...categoryForm.register("isActive")} />
@@ -302,7 +326,11 @@ function CatalogTable({
           <Button type="button" variant="outline" onClick={() => onEdit(row)}>
             Edit
           </Button>
-          <Button type="button" variant="destructive" onClick={() => onDelete(row)}>
+          <Button
+            type="button"
+            variant="destructive"
+            onClick={() => onDelete(row)}
+          >
             Delete
           </Button>
         </div>

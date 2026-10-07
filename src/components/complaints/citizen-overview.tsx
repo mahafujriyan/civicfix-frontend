@@ -82,13 +82,29 @@ export function CitizenOverview() {
       />
       {failed ? (
         <ErrorState
-          description={errorMessage(failed, "Complaint totals could not be loaded.")}
+          description={errorMessage(
+            failed,
+            "Complaint totals could not be loaded.",
+          )}
         />
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          <StatCard label="Total" value={total.data ?? "—"} icon={ClipboardList} />
-          <StatCard label="Pending" value={pending ?? "—"} icon={ListTodo} tone="warning" />
-          <StatCard label="In progress" value={inProgress.data ?? "—"} icon={Clock3} />
+          <StatCard
+            label="Total"
+            value={total.data ?? "—"}
+            icon={ClipboardList}
+          />
+          <StatCard
+            label="Pending"
+            value={pending ?? "—"}
+            icon={ListTodo}
+            tone="warning"
+          />
+          <StatCard
+            label="In progress"
+            value={inProgress.data ?? "—"}
+            icon={Clock3}
+          />
           <StatCard
             label="Resolved"
             value={resolvedTotal ?? "—"}
@@ -99,7 +115,10 @@ export function CitizenOverview() {
       )}
       {recent.isError ? (
         <ErrorState
-          description={errorMessage(recent.error, "Recent complaints could not be loaded.")}
+          description={errorMessage(
+            recent.error,
+            "Recent complaints could not be loaded.",
+          )}
         />
       ) : (
         <DataTable
@@ -107,7 +126,9 @@ export function CitizenOverview() {
           data={recent.data?.items ?? []}
           getRowKey={(row) => row.id}
           caption="Recent complaints"
-          emptyTitle={recent.isLoading ? "Loading complaints" : "No complaints yet"}
+          emptyTitle={
+            recent.isLoading ? "Loading complaints" : "No complaints yet"
+          }
           emptyDescription="File a complaint and it will show up here."
         />
       )}

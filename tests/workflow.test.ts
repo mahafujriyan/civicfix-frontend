@@ -34,7 +34,10 @@ test("user query accepts a real role only", () => {
   const query = parseUserQuery(new URLSearchParams("role=STAFF&sortBy=email"))
   assert.equal(query.role, "STAFF")
   assert.equal(query.sortBy, "email")
-  assert.equal(parseUserQuery(new URLSearchParams("role=MAYOR")).role, undefined)
+  assert.equal(
+    parseUserQuery(new URLSearchParams("role=MAYOR")).role,
+    undefined,
+  )
 })
 
 test("next path stays inside the signed-in role", () => {

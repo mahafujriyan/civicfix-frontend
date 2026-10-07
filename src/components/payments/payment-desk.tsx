@@ -84,22 +84,39 @@ export function PaymentDesk() {
             {...checkout.register("amount", { valueAsNumber: true })}
           />
         </FormField>
-        <FormField label="Currency" htmlFor="currency" required error={checkout.formState.errors.currency?.message}>
-          <Input id="currency" maxLength={3} {...checkout.register("currency")} />
+        <FormField
+          label="Currency"
+          htmlFor="currency"
+          required
+          error={checkout.formState.errors.currency?.message}
+        >
+          <Input
+            id="currency"
+            maxLength={3}
+            {...checkout.register("currency")}
+          />
         </FormField>
-        <FormField label="Complaint id" htmlFor="complaintId" hint="Optional. Must be your own complaint.">
+        <FormField
+          label="Complaint id"
+          htmlFor="complaintId"
+          hint="Optional. Must be your own complaint."
+        >
           <Input id="complaintId" {...checkout.register("complaintId")} />
         </FormField>
         <FormField label="Description" htmlFor="description">
           <Input id="description" {...checkout.register("description")} />
         </FormField>
         <Button type="submit" disabled={createPayment.isPending}>
-          {createPayment.isPending ? "Starting checkout..." : "Continue to Stripe"}
+          {createPayment.isPending
+            ? "Starting checkout..."
+            : "Continue to Stripe"}
         </Button>
       </form>
       <form
         className="bg-card ring-foreground/10 flex flex-col gap-4 rounded-2xl p-5 ring-1"
-        onSubmit={lookup.handleSubmit((values) => setPaymentId(values.paymentId))}
+        onSubmit={lookup.handleSubmit((values) =>
+          setPaymentId(values.paymentId),
+        )}
       >
         <h2 className="font-heading text-2xl">Look up a payment</h2>
         <FormField
@@ -118,7 +135,9 @@ export function PaymentDesk() {
             onClick={() => {
               const remembered = readRememberedPaymentId()
               if (!remembered) {
-                toast.error("This browser has no payment id from a checkout yet")
+                toast.error(
+                  "This browser has no payment id from a checkout yet",
+                )
                 return
               }
               setPaymentId(remembered)
@@ -171,7 +190,8 @@ export function PaymentCard({ id }: { id: string }) {
           </div>
         ) : (
           <p className="text-muted-foreground">
-            Status stays pending until the Stripe webhook updates it. This page does not mark a payment as paid.
+            Status stays pending until the Stripe webhook updates it. This page
+            does not mark a payment as paid.
           </p>
         )}
       </dl>
@@ -213,7 +233,10 @@ export function PaymentResult({
       {payment.data ? <PaymentCard id={payment.data.id} /> : null}
       {payment.isError ? (
         <p className="text-destructive text-sm">
-          {errorMessage(payment.error, "The payment status could not be loaded.")}
+          {errorMessage(
+            payment.error,
+            "The payment status could not be loaded.",
+          )}
         </p>
       ) : null}
       {!paymentId ? (

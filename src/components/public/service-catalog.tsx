@@ -8,7 +8,11 @@ import { useCategories } from "@/hooks/use-categories"
 import { errorMessage } from "@/lib/format"
 
 export function ServiceCatalog() {
-  const categories = useCategories({ limit: 100, isActive: true, sortBy: "name" })
+  const categories = useCategories({
+    limit: 100,
+    isActive: true,
+    sortBy: "name",
+  })
 
   return (
     <PublicShell>
@@ -23,7 +27,10 @@ export function ServiceCatalog() {
         ) : null}
         {categories.isError ? (
           <ErrorState
-            description={errorMessage(categories.error, "Categories could not be loaded.")}
+            description={errorMessage(
+              categories.error,
+              "Categories could not be loaded.",
+            )}
             action={
               <Button type="button" onClick={() => void categories.refetch()}>
                 Try again
@@ -33,10 +40,14 @@ export function ServiceCatalog() {
         ) : null}
         <ul className="grid gap-4 sm:grid-cols-2">
           {categories.data?.items.map((category) => (
-            <li key={category.id} className="bg-card ring-foreground/10 rounded-2xl p-5 ring-1">
+            <li
+              key={category.id}
+              className="bg-card ring-foreground/10 rounded-2xl p-5 ring-1"
+            >
               <h2 className="font-heading text-2xl">{category.name}</h2>
               <p className="text-muted-foreground mt-2 text-sm">
-                {category.description ?? "No description was stored for this category."}
+                {category.description ??
+                  "No description was stored for this category."}
               </p>
               <p className="mt-3 text-sm">
                 Department: {category.department?.name ?? "Not linked"}
@@ -45,7 +56,9 @@ export function ServiceCatalog() {
           ))}
         </ul>
         {categories.data && categories.data.items.length === 0 ? (
-          <p className="text-muted-foreground text-sm">No active categories are published.</p>
+          <p className="text-muted-foreground text-sm">
+            No active categories are published.
+          </p>
         ) : null}
       </div>
     </PublicShell>

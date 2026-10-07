@@ -36,16 +36,37 @@ export function ContactForm() {
         <form
           className="flex flex-col gap-4"
           onSubmit={form.handleSubmit(() => {
-            toast.error("No contact endpoint exists, so this message was not sent.")
+            toast.error(
+              "No contact endpoint exists, so this message was not sent.",
+            )
           })}
         >
-          <FormField label="Name" htmlFor="contact-name" required error={form.formState.errors.name?.message}>
+          <FormField
+            label="Name"
+            htmlFor="contact-name"
+            required
+            error={form.formState.errors.name?.message}
+          >
             <Input id="contact-name" {...form.register("name")} />
           </FormField>
-          <FormField label="Email" htmlFor="contact-email" required error={form.formState.errors.email?.message}>
-            <Input id="contact-email" type="email" {...form.register("email")} />
+          <FormField
+            label="Email"
+            htmlFor="contact-email"
+            required
+            error={form.formState.errors.email?.message}
+          >
+            <Input
+              id="contact-email"
+              type="email"
+              {...form.register("email")}
+            />
           </FormField>
-          <FormField label="Message" htmlFor="contact-message" required error={form.formState.errors.message?.message}>
+          <FormField
+            label="Message"
+            htmlFor="contact-message"
+            required
+            error={form.formState.errors.message?.message}
+          >
             <Textarea id="contact-message" {...form.register("message")} />
           </FormField>
           <Button type="submit">Check message</Button>

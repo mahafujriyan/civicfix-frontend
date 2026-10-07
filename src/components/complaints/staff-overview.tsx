@@ -24,7 +24,11 @@ export function StaffOverview() {
   const rejected = useComplaintTotal({ status: "REJECTED" })
   const cancelled = useComplaintTotal({ status: "CANCELLED" })
   const urgent = useComplaintTotal({ priority: "URGENT" })
-  const recent = useComplaints({ limit: 5, sortBy: "updatedAt", sortOrder: "desc" })
+  const recent = useComplaints({
+    limit: 5,
+    sortBy: "updatedAt",
+    sortOrder: "desc",
+  })
 
   const counts: Record<ComplaintStatus, number | undefined> = {
     SUBMITTED: submitted.data,
@@ -46,7 +50,9 @@ export function StaffOverview() {
     resolved.data !== undefined && closed.data !== undefined
       ? resolved.data + closed.data
       : undefined
-  const chartReady = COMPLAINT_STATUSES.every((status) => counts[status] !== undefined)
+  const chartReady = COMPLAINT_STATUSES.every(
+    (status) => counts[status] !== undefined,
+  )
   const failed = [
     total,
     submitted,
@@ -65,7 +71,10 @@ export function StaffOverview() {
       id: "title",
       header: "Assigned complaint",
       cell: (row) => (
-        <Link href={`/staff/complaints/${row.id}`} className="font-medium hover:underline">
+        <Link
+          href={`/staff/complaints/${row.id}`}
+          className="font-medium hover:underline"
+        >
           {row.title}
         </Link>
       ),
@@ -90,16 +99,41 @@ export function StaffOverview() {
         description="These totals are your assigned complaints. CivicFix has no staff analytics route, so this view counts GET /complaints."
       />
       {failed ? (
-        <ErrorState description={errorMessage(failed, "Workload could not be loaded.")} />
+        <ErrorState
+          description={errorMessage(failed, "Workload could not be loaded.")}
+        />
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          <StatCard label="Assigned" value={total.data ?? "—"} icon={ClipboardList} />
-          <StatCard label="Waiting" value={pending ?? "—"} icon={Clock3} tone="warning" />
-          <StatCard label="In progress" value={inProgress.data ?? "—"} icon={Clock3} />
-          <StatCard label="Resolved" value={done ?? "—"} icon={CircleCheck} tone="success" />
+          <StatCard
+            label="Assigned"
+            value={total.data ?? "—"}
+            icon={ClipboardList}
+          />
+          <StatCard
+            label="Waiting"
+            value={pending ?? "—"}
+            icon={Clock3}
+            tone="warning"
+          />
+          <StatCard
+            label="In progress"
+            value={inProgress.data ?? "—"}
+            icon={Clock3}
+          />
+          <StatCard
+            label="Resolved"
+            value={done ?? "—"}
+            icon={CircleCheck}
+            tone="success"
+          />
         </div>
       )}
-      <StatCard label="Urgent" value={urgent.data ?? "—"} icon={CircleAlert} tone="danger" />
+      <StatCard
+        label="Urgent"
+        value={urgent.data ?? "—"}
+        icon={CircleAlert}
+        tone="danger"
+      />
       {chartReady ? (
         <CountChart
           title="Status distribution"

@@ -68,7 +68,10 @@ export function ProfileForm() {
         >
           <Input id="phone" {...form.register("phone")} />
         </FormField>
-        <Button type="submit" disabled={updateProfile.isPending || profile.isLoading}>
+        <Button
+          type="submit"
+          disabled={updateProfile.isPending || profile.isLoading}
+        >
           {updateProfile.isPending ? "Saving..." : "Save profile"}
         </Button>
       </form>

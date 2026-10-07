@@ -18,10 +18,7 @@ import { Button } from "@/components/ui/button"
 import { useCategories } from "@/hooks/use-categories"
 import { useComplaints } from "@/hooks/use-complaints"
 import { useDepartments } from "@/hooks/use-departments"
-import {
-  COMPLAINT_STATUSES,
-  PRIORITIES,
-} from "@/lib/complaints/workflow"
+import { COMPLAINT_STATUSES, PRIORITIES } from "@/lib/complaints/workflow"
 import { errorMessage, formatWhen } from "@/lib/format"
 import { hrefWithParams, parseComplaintQuery } from "@/lib/query-state"
 import { humanizeToken } from "@/lib/utils"
@@ -48,16 +45,17 @@ export function ComplaintBrowser({
   const query = parseComplaintQuery(searchParams)
   const complaints = useComplaints(query)
   const categories = useCategories({ limit: 100, isActive: true })
-  const departments = useDepartments(
-    { limit: 100, isActive: true },
-  )
+  const departments = useDepartments({ limit: 100, isActive: true })
 
   const columns: DataTableColumn<Complaint>[] = [
     {
       id: "title",
       header: "Complaint",
       cell: (row) => (
-        <Link href={`${basePath}/${row.id}`} className="font-medium underline-offset-4 hover:underline">
+        <Link
+          href={`${basePath}/${row.id}`}
+          className="font-medium underline-offset-4 hover:underline"
+        >
           {row.title}
         </Link>
       ),
@@ -149,7 +147,10 @@ export function ComplaintBrowser({
           </FilterField>
         ) : null}
         <FilterField label="Sort">
-          <NativeSelect name="sortBy" defaultValue={query.sortBy ?? "createdAt"}>
+          <NativeSelect
+            name="sortBy"
+            defaultValue={query.sortBy ?? "createdAt"}
+          >
             <option value="createdAt">Created</option>
             <option value="updatedAt">Updated</option>
             <option value="priority">Priority</option>
@@ -158,7 +159,10 @@ export function ComplaintBrowser({
           </NativeSelect>
         </FilterField>
         <FilterField label="Order">
-          <NativeSelect name="sortOrder" defaultValue={query.sortOrder ?? "desc"}>
+          <NativeSelect
+            name="sortOrder"
+            defaultValue={query.sortOrder ?? "desc"}
+          >
             <option value="desc">Newest first</option>
             <option value="asc">Oldest first</option>
           </NativeSelect>
@@ -168,7 +172,10 @@ export function ComplaintBrowser({
       {complaints.isLoading ? <TableSkeleton /> : null}
       {complaints.isError ? (
         <ErrorState
-          description={errorMessage(complaints.error, "Complaints could not be loaded.")}
+          description={errorMessage(
+            complaints.error,
+            "Complaints could not be loaded.",
+          )}
           action={
             <Button type="button" onClick={() => void complaints.refetch()}>
               Try again

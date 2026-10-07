@@ -64,7 +64,11 @@ export function UserManager() {
           onClick={() => {
             void updateStatus
               .mutateAsync({ id: row.id, isActive: !row.isActive })
-              .then(() => toast.success(row.isActive ? "User deactivated" : "User activated"))
+              .then(() =>
+                toast.success(
+                  row.isActive ? "User deactivated" : "User activated",
+                ),
+              )
               .catch((error: unknown) => {
                 toast.error(errorMessage(error, "Status update failed"))
               })
@@ -84,7 +88,10 @@ export function UserManager() {
         description="Search, role, and sort are sent to GET /users. That route has no isActive filter, so active and inactive accounts stay in the same list."
       />
       <FilterBar action="/admin/users" label="User filters">
-        <SearchInput defaultValue={query.search ?? ""} placeholder="Search name or email" />
+        <SearchInput
+          defaultValue={query.search ?? ""}
+          placeholder="Search name or email"
+        />
         <FilterField label="Role">
           <NativeSelect name="role" defaultValue={query.role ?? ""}>
             <option value="">Any role</option>
@@ -94,14 +101,20 @@ export function UserManager() {
           </NativeSelect>
         </FilterField>
         <FilterField label="Sort">
-          <NativeSelect name="sortBy" defaultValue={query.sortBy ?? "createdAt"}>
+          <NativeSelect
+            name="sortBy"
+            defaultValue={query.sortBy ?? "createdAt"}
+          >
             <option value="createdAt">Created</option>
             <option value="fullName">Name</option>
             <option value="email">Email</option>
           </NativeSelect>
         </FilterField>
         <FilterField label="Order">
-          <NativeSelect name="sortOrder" defaultValue={query.sortOrder ?? "desc"}>
+          <NativeSelect
+            name="sortOrder"
+            defaultValue={query.sortOrder ?? "desc"}
+          >
             <option value="desc">Descending</option>
             <option value="asc">Ascending</option>
           </NativeSelect>
@@ -110,7 +123,9 @@ export function UserManager() {
       </FilterBar>
       {users.isLoading ? <TableSkeleton /> : null}
       {users.isError ? (
-        <ErrorState description={errorMessage(users.error, "Users could not be loaded.")} />
+        <ErrorState
+          description={errorMessage(users.error, "Users could not be loaded.")}
+        />
       ) : null}
       {users.data ? (
         <>
@@ -125,7 +140,9 @@ export function UserManager() {
             page={users.data.meta.page}
             pageCount={users.data.meta.totalPages}
             hrefForPage={(page) =>
-              hrefWithParams("/admin/users", searchParams, { page: String(page) })
+              hrefWithParams("/admin/users", searchParams, {
+                page: String(page),
+              })
             }
           />
         </>

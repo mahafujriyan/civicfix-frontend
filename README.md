@@ -23,11 +23,11 @@ The backend must point `STRIPE_SUCCESS_URL` at `/payment/success` and `STRIPE_CA
 
 ## Roles
 
-| Role | Home |
-|---|---|
+| Role    | Home         |
+| ------- | ------------ |
 | Citizen | `/dashboard` |
-| Staff | `/staff` |
-| Admin | `/admin` |
+| Staff   | `/staff`     |
+| Admin   | `/admin`     |
 
 Signed-out visits to those areas go to `/login`. The wrong role goes to `/unauthorized`. Route checks are UX only. The API still authorizes every request.
 

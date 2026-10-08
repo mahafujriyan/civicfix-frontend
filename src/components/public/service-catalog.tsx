@@ -34,6 +34,7 @@ export function ServiceCatalog() {
             src="/images/scene-walk.jpg"
             alt="Cracked pavement beside a painted curb. A photograph, not a service category."
             sizes="(min-width: 1024px) 28vw, 100vw"
+            eager
             className="civic-frame min-h-56 lg:min-h-full"
           />
         </div>

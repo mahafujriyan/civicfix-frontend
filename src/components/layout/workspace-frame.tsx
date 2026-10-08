@@ -76,7 +76,14 @@ export function WorkspaceFrame({ role, children }: WorkspaceFrameProps) {
             description="This area belongs to a different CivicFix role."
           />
         ) : null}
-        {currentUser.data?.role === role ? children : null}
+        <div
+          hidden={
+            Boolean(currentUser.isLoading) ||
+            currentUser.data?.role !== role
+          }
+        >
+          {children}
+        </div>
       </div>
     </AppShell>
   )

@@ -24,6 +24,8 @@ export function CityPhoto({
         fill
         sizes={sizes}
         preload={eager}
+        loading={eager ? "eager" : "lazy"}
+        fetchPriority={eager ? "high" : "auto"}
         className="civic-photo object-cover"
       />
     </div>

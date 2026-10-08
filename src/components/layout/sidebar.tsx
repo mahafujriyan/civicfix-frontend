@@ -38,7 +38,7 @@ export function Sidebar({
         </div>
       </div>
       <div className="flex-1 overflow-y-auto px-3">
-        <NavLinks items={items} layoutId="civicfix-nav-desktop" />
+        <NavLinks items={items} />
       </div>
       {user ? (
         <div className="border-sidebar-border border-t p-4">{user}</div>

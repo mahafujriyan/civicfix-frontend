@@ -1,8 +1,5 @@
-"use client"
-
 import { cn } from "@/lib/utils"
 import type { LucideIcon } from "lucide-react"
-import { motion, useReducedMotion } from "motion/react"
 import type { ReactNode } from "react"
 
 const tones = {
@@ -29,15 +26,8 @@ export function StatCard({
   icon: Icon,
   tone = "default",
 }: StatCardProps) {
-  const reduceMotion = useReducedMotion()
-
   return (
-    <motion.article
-      initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, ease: "easeOut" }}
-      className="bg-card ring-foreground/10 rounded-2xl p-5 shadow-sm ring-1"
-    >
+    <article className="civic-rise bg-card ring-foreground/10 rounded-2xl p-5 shadow-sm ring-1">
       <div className="flex items-start justify-between gap-3">
         <p className="text-muted-foreground text-sm font-medium">{label}</p>
         {Icon ? (
@@ -57,6 +47,6 @@ export function StatCard({
       {hint ? (
         <p className="text-muted-foreground mt-1 text-sm">{hint}</p>
       ) : null}
-    </motion.article>
+    </article>
   )
 }

@@ -58,7 +58,7 @@ export function MobileNavigation({
           </SheetTitle>
         </SheetHeader>
         <div className="px-3 py-4">
-          <NavLinks items={items} layoutId="civicfix-nav-mobile" dismissSheet />
+          <NavLinks items={items} dismissSheet />
         </div>
         {user ? (
           <div className="border-sidebar-border mt-auto border-t p-4">

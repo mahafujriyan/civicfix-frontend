@@ -12,6 +12,22 @@ function isUserRole(value: unknown): value is UserRole {
   return value === "CITIZEN" || value === "STAFF" || value === "ADMIN"
 }
 
+function decodeJwtPayload(segment: string): unknown {
+  const normalized = segment.replace(/-/g, "+").replace(/_/g, "/")
+  const padded = normalized.padEnd(
+    normalized.length + ((4 - (normalized.length % 4)) % 4),
+    "=",
+  )
+
+  if (typeof Buffer !== "undefined") {
+    return JSON.parse(Buffer.from(padded, "base64").toString("utf8"))
+  }
+
+  const binary = atob(padded)
+  const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0))
+  return JSON.parse(new TextDecoder().decode(bytes))
+}
+
 export function decodeAccessToken(token: string): TokenClaims | null {
   const parts = token.split(".")
   if (parts.length !== 3) {
@@ -19,8 +35,7 @@ export function decodeAccessToken(token: string): TokenClaims | null {
   }
 
   try {
-    const payloadText = atob(parts[1].replace(/-/g, "+").replace(/_/g, "/"))
-    const payload: unknown = JSON.parse(payloadText)
+    const payload: unknown = decodeJwtPayload(parts[1])
     if (typeof payload !== "object" || payload === null) {
       return null
     }

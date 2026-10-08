@@ -38,10 +38,11 @@ Copy-Item .env.example .env.local
 
 | Variable | Required | Purpose |
 | --- | --- | --- |
-| `NEXT_PUBLIC_API_URL` | Yes | API base, including `/api/v1` |
+| `NEXT_PUBLIC_API_URL` | Yes | Prefer `/api/v1` (same origin). Next rewrites that path to the B7A6 API. |
 | `NEXT_PUBLIC_APP_URL` | Yes | This site, used for metadata |
-| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Yes | Stripe test publishable key |
+| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | No for browse; yes for checkout | Stripe test publishable key |
 | `NEXT_PUBLIC_GOOGLE_CLIENT_ID` | No | Google sign-in stays disabled until this is set |
+| `CIVICFIX_API_PROXY_TARGET` | No | Server-only rewrite target. Defaults to the B7A6 Vercel API. |
 
 Do not commit `.env.local`.
 
@@ -144,9 +145,29 @@ npm run format       # prettier
 
 ## Deploy
 
+Production site: [https://civicfix-b7a7.vercel.app](https://civicfix-b7a7.vercel.app)
+
 ```bash
 npm run build
 npm start
 ```
 
-Set the same public environment variables on the host. Point the backend Stripe return URLs at that host’s `/payment/success` and `/payment/cancel`.
+Or deploy with Vercel from this repo:
+
+```bash
+npx vercel --prod
+```
+
+Set these on the Vercel project (Production):
+
+| Variable | Value |
+| --- | --- |
+| `NEXT_PUBLIC_API_URL` | `/api/v1` |
+| `NEXT_PUBLIC_APP_URL` | `https://civicfix-b7a7.vercel.app` |
+| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | your Stripe test publishable key |
+
+The browser calls `/api/v1` on this site. Next.js rewrites those requests to `https://civicfix-backend-nine.vercel.app/api/v1`, so production does not depend on the backend CORS list.
+
+Point the backend Stripe return URLs at that host’s `/payment/success` and `/payment/cancel`.
+
+`https://civicfix-frontend.vercel.app` is a different Vite app. Use [https://civicfix-b7a7.vercel.app](https://civicfix-b7a7.vercel.app) for this Next.js frontend.

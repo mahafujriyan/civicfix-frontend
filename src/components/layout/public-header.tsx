@@ -18,7 +18,7 @@ export function PublicHeader() {
     <header className="bg-background/80 sticky top-0 z-40 border-b backdrop-blur">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
         <Link href="/" className="flex items-center gap-2">
-          <span className="bg-primary text-primary-foreground flex size-9 items-center justify-center rounded-xl">
+          <span className="civic-logo bg-primary text-primary-foreground flex size-9 items-center justify-center rounded-xl">
             <Landmark className="size-4" aria-hidden />
           </span>
           <span className="font-heading text-2xl tracking-tight">CivicFix</span>
@@ -28,7 +28,7 @@ export function PublicHeader() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-muted-foreground hover:text-foreground text-sm font-medium"
+              className="civic-nav-link text-muted-foreground hover:text-foreground text-sm font-medium"
             >
               {link.label}
             </Link>

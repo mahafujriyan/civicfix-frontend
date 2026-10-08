@@ -162,17 +162,11 @@ export function LandingPage() {
   return (
     <div>
       <section className="relative overflow-hidden">
-        <div
-          className="pointer-events-none absolute inset-0"
-          aria-hidden
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 12% 20%, oklch(0.46 0.08 178 / 0.18), transparent 28%), radial-gradient(circle at 90% 0%, oklch(0.7 0.1 75 / 0.16), transparent 26%)",
-          }}
-        />
-        <div className="relative mx-auto grid w-full max-w-6xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:py-24">
-          <Rise>
-            <p className="text-primary text-sm font-medium tracking-[0.18em] uppercase">
+        <div className="civic-orb civic-orb-a" aria-hidden />
+        <div className="civic-orb civic-orb-b" aria-hidden />
+        <div className="relative mx-auto grid w-full max-w-6xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:py-24">
+          <Rise immediate>
+            <p className="civic-kicker text-primary text-sm font-medium tracking-[0.18em] uppercase">
               City complaint services
             </p>
             <h1 className="font-heading mt-4 max-w-xl text-5xl leading-[1.02] tracking-tight sm:text-7xl">
@@ -191,22 +185,23 @@ export function LandingPage() {
                 <Link href="/services">Browse services</Link>
               </Button>
             </div>
-            <dl className="mt-10 grid max-w-lg grid-cols-3 gap-4 text-sm">
-              <div>
-                <dt className="text-muted-foreground">Desks</dt>
-                <dd className="font-heading mt-1 text-3xl">3</dd>
-              </div>
-              <div>
-                <dt className="text-muted-foreground">Statuses</dt>
-                <dd className="font-heading mt-1 text-3xl">8</dd>
-              </div>
-              <div>
-                <dt className="text-muted-foreground">Priorities</dt>
-                <dd className="font-heading mt-1 text-3xl">4</dd>
-              </div>
+            <dl className="mt-10 grid max-w-lg grid-cols-3 gap-3 text-sm">
+              {[
+                ["Desks", "3"],
+                ["Statuses", "8"],
+                ["Priorities", "4"],
+              ].map(([label, value]) => (
+                <div
+                  key={label}
+                  className="bg-card/80 ring-foreground/10 rounded-2xl px-3 py-4 ring-1"
+                >
+                  <dt className="text-muted-foreground">{label}</dt>
+                  <dd className="font-heading mt-1 text-3xl">{value}</dd>
+                </div>
+              ))}
             </dl>
           </Rise>
-          <Rise delay={0.08} className="relative min-h-[34rem] overflow-hidden rounded-[2rem] shadow-xl">
+          <Rise immediate delay={0.12} className="civic-frame relative min-h-[40rem] overflow-hidden rounded-[2rem] shadow-2xl sm:min-h-[44rem]">
             <CityPhoto
               src="/images/hero-lane.jpg"
               alt="A wet residential lane after rain, with standing water across the asphalt. A photograph of a street, not a filed complaint."
@@ -214,17 +209,17 @@ export function LandingPage() {
               eager
               className="absolute inset-0"
             />
-            <article className="bg-sidebar/95 text-sidebar-foreground ring-sidebar-border absolute inset-x-4 bottom-4 z-10 rounded-[1.6rem] p-6 shadow-xl ring-1 backdrop-blur-md sm:inset-x-6">
+            <article className="bg-sidebar/90 text-sidebar-foreground ring-sidebar-border absolute inset-x-4 bottom-4 z-10 rounded-[1.4rem] p-5 shadow-xl ring-1 backdrop-blur-md sm:inset-x-5">
               <p className="text-sidebar-primary text-xs font-medium tracking-[0.16em] uppercase">
                 Record preview
               </p>
               <p className="text-sidebar-foreground/60 mt-1 text-xs">
                 A sample of the fields a complaint stores. Not a live case.
               </p>
-              <h2 className="font-heading mt-6 text-3xl leading-tight">
+              <h2 className="font-heading mt-4 text-2xl leading-tight">
                 Standing water across the lane
               </h2>
-              <div className="mt-4 flex flex-wrap gap-2 text-xs">
+              <div className="mt-3 flex flex-wrap gap-2 text-xs">
                 <span className="bg-sidebar-accent rounded-full px-3 py-1">
                   Submitted
                 </span>
@@ -235,7 +230,7 @@ export function LandingPage() {
                   Drainage
                 </span>
               </div>
-              <ul className="mt-8 flex flex-col gap-4 text-sm">
+              <ul className="mt-4 flex flex-col gap-2 text-sm">
                 {[
                   ["Location", "Lane 4, beside the school gate"],
                   ["Department", "Set from the chosen category"],
@@ -256,25 +251,29 @@ export function LandingPage() {
         </div>
       </section>
 
-      <section aria-label="Complaint statuses" className="border-y">
-        <ul className="mx-auto flex w-full max-w-6xl gap-2 overflow-x-auto px-4 py-4 sm:px-6">
-          {COMPLAINT_STATUSES.map((status, index) => (
-            <li
-              key={status}
-              className="bg-card ring-foreground/10 shrink-0 rounded-full px-4 py-2 text-sm ring-1"
-            >
-              <span className="text-primary mr-2 font-medium">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              {humanizeToken(status)}
-            </li>
+      <section aria-label="Complaint statuses" className="civic-marquee border-y">
+        <div className="civic-marquee-track py-4">
+          {[0, 1].map((copy) => (
+            <ul key={copy} className="flex gap-2 pr-2" aria-hidden={copy === 1}>
+              {COMPLAINT_STATUSES.map((status, index) => (
+                <li
+                  key={`${copy}-${status}`}
+                  className="bg-card ring-foreground/10 shrink-0 rounded-full px-4 py-2 text-sm ring-1"
+                >
+                  <span className="text-primary mr-2 font-medium">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  {humanizeToken(status)}
+                </li>
+              ))}
+            </ul>
           ))}
-        </ul>
+        </div>
       </section>
 
       <section className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6">
         <Rise>
-          <p className="text-primary text-sm font-medium tracking-[0.16em] uppercase">
+          <p className="civic-kicker text-primary text-sm font-medium tracking-[0.16em] uppercase">
             Places
           </p>
           <h2 className="font-heading mt-2 max-w-2xl text-4xl tracking-tight sm:text-5xl">
@@ -289,21 +288,24 @@ export function LandingPage() {
           {scenes.map((scene, index) => (
             <li key={scene.src}>
               <Rise
-                delay={index * 0.05}
-                className="civic-card bg-card ring-foreground/10 h-full overflow-hidden rounded-[1.6rem] ring-1"
+                delay={index * 0.08}
+                className="civic-card civic-frame bg-card ring-foreground/10 h-full overflow-hidden rounded-[1.6rem] ring-1"
               >
-                <CityPhoto
-                  src={scene.src}
-                  alt={scene.alt}
-                  sizes="(min-width: 768px) 30vw, 100vw"
-                  className="aspect-[4/3]"
-                />
-                <div className="p-5">
-                  <h3 className="font-heading text-2xl">{scene.title}</h3>
-                  <p className="text-muted-foreground mt-2 text-sm leading-6">
-                    {scene.copy}
-                  </p>
+                <div className="relative">
+                  <CityPhoto
+                    src={scene.src}
+                    alt={scene.alt}
+                    sizes="(min-width: 768px) 30vw, 100vw"
+                    className="aspect-[4/3]"
+                  />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                  <h3 className="font-heading absolute inset-x-5 bottom-4 text-2xl text-white">
+                    {scene.title}
+                  </h3>
                 </div>
+                <p className="text-muted-foreground p-5 text-sm leading-6">
+                  {scene.copy}
+                </p>
               </Rise>
             </li>
           ))}
@@ -312,7 +314,7 @@ export function LandingPage() {
 
       <section className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6">
         <Rise>
-          <p className="text-primary text-sm font-medium tracking-[0.16em] uppercase">
+          <p className="civic-kicker text-primary text-sm font-medium tracking-[0.16em] uppercase">
             Filing
           </p>
           <h2 className="font-heading mt-2 max-w-2xl text-4xl tracking-tight sm:text-5xl">
@@ -322,7 +324,7 @@ export function LandingPage() {
         <ol className="mt-10 grid gap-4 md:grid-cols-5">
           {steps.map((step, index) => (
             <li key={step.title}>
-              <Rise delay={index * 0.04} className="bg-card ring-foreground/10 h-full rounded-2xl p-5 ring-1">
+              <Rise delay={index * 0.06} className="civic-card civic-panel bg-card ring-foreground/10 h-full rounded-2xl p-5 ring-1">
                 <p className="font-heading text-primary text-3xl">
                   {String(index + 1).padStart(2, "0")}
                 </p>
@@ -339,7 +341,7 @@ export function LandingPage() {
       <section className="bg-card/70 border-y">
         <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6">
           <Rise>
-            <p className="text-primary text-sm font-medium tracking-[0.16em] uppercase">
+            <p className="civic-kicker text-primary text-sm font-medium tracking-[0.16em] uppercase">
               Three desks
             </p>
             <h2 className="font-heading mt-2 max-w-2xl text-4xl tracking-tight sm:text-5xl">
@@ -350,7 +352,7 @@ export function LandingPage() {
             {roles.map((role) => (
               <article
                 key={role.name}
-                className="civic-card bg-background ring-foreground/10 flex flex-col rounded-[1.6rem] p-6 ring-1"
+                className="civic-card civic-panel bg-background ring-foreground/10 flex h-full flex-col rounded-[1.6rem] p-6 ring-1"
               >
                 <UserRound className="text-primary size-5" aria-hidden />
                 <h3 className="font-heading mt-4 text-3xl">{role.name}</h3>
@@ -391,8 +393,11 @@ export function LandingPage() {
             ["Resolved", "Closed"],
             ["Closed", "The record stays as history"],
           ].map(([from, to]) => (
-            <li key={from} className="bg-card ring-foreground/10 rounded-2xl p-5 ring-1">
-              <p className="font-medium">{from}</p>
+            <li key={from} className="civic-card bg-card ring-foreground/10 rounded-2xl p-5 ring-1">
+              <p className="flex items-center gap-2 font-medium">
+                <span className="civic-dot" aria-hidden />
+                {from}
+              </p>
               <p className="text-muted-foreground mt-1 text-sm">{to}</p>
             </li>
           ))}
@@ -410,7 +415,7 @@ export function LandingPage() {
         </Rise>
         <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {recordFields.map(([title, copy]) => (
-            <li key={title} className="bg-muted/60 rounded-2xl p-5">
+            <li key={title} className="civic-card bg-muted/60 rounded-2xl p-5">
               <h3 className="font-medium">{title}</h3>
               <p className="text-muted-foreground mt-2 text-sm leading-6">{copy}</p>
             </li>
@@ -428,7 +433,7 @@ export function LandingPage() {
         </Rise>
         <ul className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {after.map((item) => (
-            <li key={item.title} className="bg-card ring-foreground/10 rounded-2xl p-5 ring-1">
+            <li key={item.title} className="civic-card civic-panel bg-card ring-foreground/10 rounded-2xl p-5 ring-1">
               <item.icon className="text-primary size-5" aria-hidden />
               <h3 className="mt-4 text-lg font-medium">{item.title}</h3>
               <p className="text-muted-foreground mt-2 text-sm leading-6">{item.copy}</p>
@@ -465,7 +470,7 @@ export function LandingPage() {
         <h2 className="font-heading text-4xl tracking-tight">Questions</h2>
         <dl className="mt-8 grid gap-4 md:grid-cols-2">
           {questions.map((item) => (
-            <div key={item.q} className="bg-card ring-foreground/10 rounded-2xl p-5 ring-1">
+            <div key={item.q} className="civic-card bg-card ring-foreground/10 rounded-2xl p-5 ring-1">
               <dt className="font-medium">{item.q}</dt>
               <dd className="text-muted-foreground mt-2 text-sm leading-6">{item.a}</dd>
             </div>
@@ -474,7 +479,7 @@ export function LandingPage() {
       </section>
 
       <section className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6">
-        <div className="bg-primary text-primary-foreground rounded-[2rem] px-6 py-12 sm:px-12">
+        <div className="civic-mesh text-primary-foreground relative overflow-hidden rounded-[2rem] px-6 py-14 sm:px-12">
           <p className="text-sm font-medium tracking-[0.16em] uppercase opacity-80">
             Start a record
           </p>

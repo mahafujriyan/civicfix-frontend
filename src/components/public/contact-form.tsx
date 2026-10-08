@@ -1,6 +1,7 @@
 "use client"
 
 import { PublicShell } from "@/components/layout/public-shell"
+import { CityPhoto } from "@/components/public/city-photo"
 import { FormField } from "@/components/shared/form-field"
 import { PageHeader } from "@/components/shared/page-header"
 import { Button } from "@/components/ui/button"
@@ -34,6 +35,12 @@ export function ContactForm() {
             title="Write to the city desk"
             description="The CivicFix API has no contact endpoint, so this form checks the message and does not pretend it was saved."
           />
+          <CityPhoto
+            src="/images/scene-lamp.jpg"
+            alt="A street lamp over a wet sidewalk. A photograph, not a sent message."
+            sizes="(min-width: 1024px) 36vw, 100vw"
+            className="civic-frame aspect-[16/10] rounded-[1.6rem]"
+          />
           <ul className="text-muted-foreground flex flex-col gap-3 text-sm leading-6">
             <li>Include the street, the ward, and what you can see.</li>
             <li>A complaint still needs an account. This note is not a case file.</li>
@@ -41,7 +48,7 @@ export function ContactForm() {
           </ul>
         </div>
         <form
-          className="bg-card ring-foreground/10 flex flex-col gap-4 rounded-[1.6rem] p-6 ring-1"
+          className="civic-card bg-card ring-foreground/10 flex flex-col gap-4 rounded-[1.6rem] p-6 ring-1"
           onSubmit={form.handleSubmit(() => {
             toast.error(
               "No contact endpoint exists, so this message was not sent.",

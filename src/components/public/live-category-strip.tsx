@@ -59,7 +59,7 @@ export function LiveCategoryStrip() {
           {categories.data.items.map((category) => (
             <li
               key={category.id}
-              className="bg-card ring-foreground/10 rounded-2xl p-5 ring-1"
+              className="civic-card bg-card ring-foreground/10 rounded-2xl p-5 ring-1"
             >
               <Building2 className="text-primary size-4" aria-hidden />
               <h3 className="font-heading mt-3 text-2xl">{category.name}</h3>

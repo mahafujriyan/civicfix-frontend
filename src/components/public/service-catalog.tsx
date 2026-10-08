@@ -34,7 +34,7 @@ export function ServiceCatalog() {
             src="/images/scene-walk.jpg"
             alt="Cracked pavement beside a painted curb. A photograph, not a service category."
             sizes="(min-width: 1024px) 28vw, 100vw"
-            className="min-h-56 lg:min-h-full"
+            className="civic-frame min-h-56 lg:min-h-full"
           />
         </div>
         {categories.isLoading ? (
@@ -57,7 +57,7 @@ export function ServiceCatalog() {
           {categories.data?.items.map((category) => (
             <li
               key={category.id}
-              className="bg-card ring-foreground/10 rounded-2xl p-5 ring-1"
+              className="civic-card bg-card ring-foreground/10 rounded-2xl p-5 ring-1"
             >
               <h2 className="font-heading text-2xl">{category.name}</h2>
               <p className="text-muted-foreground mt-2 text-sm">

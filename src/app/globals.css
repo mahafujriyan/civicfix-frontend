@@ -143,7 +143,7 @@
 @keyframes civic-rise {
   from {
     opacity: 0;
-    translate: 0 18px;
+    translate: 0 28px;
   }
   to {
     opacity: 1;
@@ -151,8 +151,13 @@
   }
 }
 
-.civic-rise {
-  animation: civic-rise 0.55s ease-out both;
+@keyframes civic-draw {
+  from {
+    scale: 0 1;
+  }
+  to {
+    scale: 1 1;
+  }
 }
 
 @keyframes civic-drift {
@@ -164,17 +169,187 @@
   }
 }
 
+@keyframes civic-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -18px;
+  }
+}
+
+@keyframes civic-mesh {
+  0%,
+  100% {
+    background-position: 0% 40%, 100% 70%, 0 0;
+  }
+  50% {
+    background-position: 80% 10%, 10% 90%, 0 0;
+  }
+}
+
+@keyframes civic-marquee {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: -50% 0;
+  }
+}
+
+@keyframes civic-ping {
+  0% {
+    box-shadow: 0 0 0 0 oklch(0.42 0.075 178 / 0.45);
+  }
+  100% {
+    box-shadow: 0 0 0 12px oklch(0.42 0.075 178 / 0);
+  }
+}
+
+@keyframes civic-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 oklch(0.42 0.075 178 / 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px oklch(0.42 0.075 178 / 0);
+  }
+}
+
+.civic-now,
+.civic-rise {
+  animation: civic-rise 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.civic-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.civic-kicker::before {
+  content: "";
+  width: 1.75rem;
+  height: 1px;
+  transform-origin: left center;
+  background: currentColor;
+  animation: civic-draw 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 .civic-photo {
-  animation: civic-drift 22s ease-in-out alternate infinite;
+  animation: civic-drift 18s ease-in-out alternate infinite;
+}
+
+.civic-orb {
+  position: absolute;
+  border-radius: 999px;
+  pointer-events: none;
+  filter: blur(36px);
+  animation: civic-float 10s ease-in-out infinite;
+}
+
+.civic-orb-a {
+  top: -5rem;
+  left: -4rem;
+  width: 18rem;
+  height: 18rem;
+  background: oklch(0.55 0.09 178 / 0.28);
+}
+
+.civic-orb-b {
+  top: 8%;
+  right: 8%;
+  width: 14rem;
+  height: 14rem;
+  background: oklch(0.78 0.1 75 / 0.32);
+  animation-delay: -4s;
+}
+
+.civic-logo {
+  animation: civic-glow 3.4s ease-out infinite;
+}
+
+.civic-nav-link {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0 1px;
+  transition:
+    background-size 220ms ease,
+    color 220ms ease;
+}
+
+.civic-marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.civic-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: civic-marquee 38s linear infinite;
+}
+
+.civic-dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  flex: none;
+  border-radius: 999px;
+  background: var(--primary);
+  animation: civic-ping 2.6s ease-out infinite;
+}
+
+.civic-panel {
+  position: relative;
+  overflow: hidden;
+}
+
+.civic-panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  transform-origin: left center;
+  background: linear-gradient(90deg, var(--primary), oklch(0.74 0.12 75));
+  animation: civic-draw 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.civic-mesh {
+  background-image:
+    radial-gradient(circle at 0% 0%, oklch(0.78 0.1 175 / 0.55), transparent 46%),
+    radial-gradient(circle at 100% 120%, oklch(0.84 0.1 75 / 0.4), transparent 42%),
+    linear-gradient(135deg, var(--primary), oklch(0.34 0.06 195));
+  background-size: 160% 160%, 160% 160%, auto;
+  animation: civic-mesh 16s ease-in-out infinite;
 }
 
 .civic-card {
-  transition: translate 180ms ease;
+  transition:
+    translate 220ms ease,
+    box-shadow 220ms ease;
 }
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .civic-card:hover {
-    translate: 0 -4px;
+    translate: 0 -6px;
+    box-shadow: 0 18px 40px oklch(0.24 0.035 245 / 0.08);
+  }
+
+  .civic-nav-link:hover {
+    background-size: 100% 1px;
+  }
+
+  .civic-frame:hover .civic-photo {
+    animation: none;
+    scale: 1.07;
+    transition: scale 0.8s ease;
+  }
+
+  .civic-marquee:hover .civic-marquee-track {
+    animation-play-state: paused;
   }
 }
 
@@ -187,7 +362,12 @@
     scroll-behavior: auto !important;
   }
 
-  .civic-photo {
+  .civic-photo,
+  .civic-marquee-track,
+  .civic-orb,
+  .civic-logo,
+  .civic-mesh,
+  .civic-dot {
     animation: none !important;
   }
 }

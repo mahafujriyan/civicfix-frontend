@@ -27,8 +27,8 @@ export default function AboutPage() {
   return (
     <PublicShell>
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-16 px-4 py-16 sm:px-6">
-        <Rise>
-          <p className="text-primary text-sm font-medium tracking-[0.16em] uppercase">
+        <Rise immediate>
+          <p className="civic-kicker text-primary text-sm font-medium tracking-[0.16em] uppercase">
             About
           </p>
           <h1 className="font-heading mt-3 max-w-3xl text-5xl tracking-tight sm:text-6xl">
@@ -43,17 +43,19 @@ export default function AboutPage() {
           src="/images/scene-lamp.jpg"
           alt="A street lamp over a wet sidewalk at dusk. A photograph of a street, not a complaint on file."
           sizes="(min-width: 1152px) 72rem, 100vw"
-          className="aspect-[16/7] rounded-[1.8rem]"
+          className="civic-frame aspect-[16/7] rounded-[1.8rem]"
         />
         <div className="grid gap-4 lg:grid-cols-3">
           {chapters.map((chapter, index) => (
-            <article key={chapter.title} className="bg-card ring-foreground/10 rounded-[1.6rem] p-6 ring-1">
+            <Rise key={chapter.title} delay={index * 0.08}>
+              <article className="civic-card civic-panel bg-card ring-foreground/10 h-full rounded-[1.6rem] p-6 ring-1">
               <p className="font-heading text-primary text-3xl">
                 {String(index + 1).padStart(2, "0")}
               </p>
               <h2 className="font-heading mt-4 text-2xl">{chapter.title}</h2>
               <p className="text-muted-foreground mt-3 text-sm leading-6">{chapter.copy}</p>
-            </article>
+              </article>
+            </Rise>
           ))}
         </div>
         <section className="grid gap-6 lg:grid-cols-[1fr_1fr]">

@@ -40,7 +40,7 @@ export function PublicShell({ children }: PublicShellProps) {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sidebar-foreground/80 hover:text-sidebar-foreground"
+                    className="civic-nav-link text-sidebar-foreground/80 hover:text-sidebar-foreground"
                   >
                     {link.label}
                   </Link>
@@ -57,7 +57,7 @@ export function PublicShell({ children }: PublicShellProps) {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sidebar-foreground/80 hover:text-sidebar-foreground"
+                    className="civic-nav-link text-sidebar-foreground/80 hover:text-sidebar-foreground"
                   >
                     {link.label}
                   </Link>
@@ -73,7 +73,7 @@ export function PublicShell({ children }: PublicShellProps) {
               <li>
                 <Link
                   href="/register"
-                  className="text-sidebar-foreground/80 hover:text-sidebar-foreground"
+                  className="civic-nav-link text-sidebar-foreground/80 hover:text-sidebar-foreground"
                 >
                   Create a citizen account
                 </Link>
@@ -81,7 +81,7 @@ export function PublicShell({ children }: PublicShellProps) {
               <li>
                 <Link
                   href="/login"
-                  className="text-sidebar-foreground/80 hover:text-sidebar-foreground"
+                  className="civic-nav-link text-sidebar-foreground/80 hover:text-sidebar-foreground"
                 >
                   Sign in
                 </Link>
@@ -89,7 +89,7 @@ export function PublicShell({ children }: PublicShellProps) {
               <li>
                 <Link
                   href="/unauthorized"
-                  className="text-sidebar-foreground/80 hover:text-sidebar-foreground"
+                  className="civic-nav-link text-sidebar-foreground/80 hover:text-sidebar-foreground"
                 >
                   Wrong role
                 </Link>

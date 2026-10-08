@@ -155,6 +155,29 @@
   animation: civic-rise 0.55s ease-out both;
 }
 
+@keyframes civic-drift {
+  from {
+    scale: 1.02;
+  }
+  to {
+    scale: 1.08;
+  }
+}
+
+.civic-photo {
+  animation: civic-drift 22s ease-in-out alternate infinite;
+}
+
+.civic-card {
+  transition: translate 180ms ease;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .civic-card:hover {
+    translate: 0 -4px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -162,5 +185,9 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
+  }
+
+  .civic-photo {
+    animation: none !important;
   }
 }

@@ -1,3 +1,4 @@
+import { CityPhoto } from "@/components/public/city-photo"
 import { LiveCategoryStrip } from "@/components/public/live-category-strip"
 import { Rise } from "@/components/public/rise"
 import { Button } from "@/components/ui/button"
@@ -109,6 +110,27 @@ const after = [
   },
 ]
 
+const scenes = [
+  {
+    src: "/images/scene-drain.jpg",
+    title: "A grate at the curb",
+    copy: "Drainage is a place and a description. The photograph is not a case.",
+    alt: "A storm drain grate at a wet curb, with a few leaves on the metal.",
+  },
+  {
+    src: "/images/scene-lamp.jpg",
+    title: "A lamp on a wet walk",
+    copy: "Lighting still needs a street, a category, and a person who filed it.",
+    alt: "One street lamp lit over an empty wet sidewalk at dusk.",
+  },
+  {
+    src: "/images/scene-walk.jpg",
+    title: "A break in the pavement",
+    copy: "The picture shows the kind of place. The API stores the record.",
+    alt: "Cracked concrete sidewalk beside a painted curb in morning light.",
+  },
+]
+
 const questions = [
   {
     q: "Where do the numbers on a dashboard come from?",
@@ -184,8 +206,15 @@ export function LandingPage() {
               </div>
             </dl>
           </Rise>
-          <Rise delay={0.08}>
-            <article className="bg-sidebar text-sidebar-foreground relative overflow-hidden rounded-[2rem] p-6 shadow-xl sm:p-8">
+          <Rise delay={0.08} className="relative min-h-[34rem] overflow-hidden rounded-[2rem] shadow-xl">
+            <CityPhoto
+              src="/images/hero-lane.jpg"
+              alt="A wet residential lane after rain, with standing water across the asphalt. A photograph of a street, not a filed complaint."
+              sizes="(min-width: 1024px) 42vw, 100vw"
+              eager
+              className="absolute inset-0"
+            />
+            <article className="bg-sidebar/95 text-sidebar-foreground ring-sidebar-border absolute inset-x-4 bottom-4 z-10 rounded-[1.6rem] p-6 shadow-xl ring-1 backdrop-blur-md sm:inset-x-6">
               <p className="text-sidebar-primary text-xs font-medium tracking-[0.16em] uppercase">
                 Record preview
               </p>
@@ -243,6 +272,44 @@ export function LandingPage() {
         </ul>
       </section>
 
+      <section className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6">
+        <Rise>
+          <p className="text-primary text-sm font-medium tracking-[0.16em] uppercase">
+            Places
+          </p>
+          <h2 className="font-heading mt-2 max-w-2xl text-4xl tracking-tight sm:text-5xl">
+            Pictures of streets. Not filed complaints.
+          </h2>
+          <p className="text-muted-foreground mt-4 max-w-xl text-sm leading-6">
+            These photographs show the kinds of places a record can describe.
+            They are not cases in the city API.
+          </p>
+        </Rise>
+        <ul className="mt-8 grid gap-4 md:grid-cols-3">
+          {scenes.map((scene, index) => (
+            <li key={scene.src}>
+              <Rise
+                delay={index * 0.05}
+                className="civic-card bg-card ring-foreground/10 h-full overflow-hidden rounded-[1.6rem] ring-1"
+              >
+                <CityPhoto
+                  src={scene.src}
+                  alt={scene.alt}
+                  sizes="(min-width: 768px) 30vw, 100vw"
+                  className="aspect-[4/3]"
+                />
+                <div className="p-5">
+                  <h3 className="font-heading text-2xl">{scene.title}</h3>
+                  <p className="text-muted-foreground mt-2 text-sm leading-6">
+                    {scene.copy}
+                  </p>
+                </div>
+              </Rise>
+            </li>
+          ))}
+        </ul>
+      </section>
+
       <section className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6">
         <Rise>
           <p className="text-primary text-sm font-medium tracking-[0.16em] uppercase">
@@ -283,7 +350,7 @@ export function LandingPage() {
             {roles.map((role) => (
               <article
                 key={role.name}
-                className="bg-background ring-foreground/10 flex flex-col rounded-[1.6rem] p-6 ring-1"
+                className="civic-card bg-background ring-foreground/10 flex flex-col rounded-[1.6rem] p-6 ring-1"
               >
                 <UserRound className="text-primary size-5" aria-hidden />
                 <h3 className="font-heading mt-4 text-3xl">{role.name}</h3>

@@ -1,4 +1,5 @@
 import { PublicShell } from "@/components/layout/public-shell"
+import { CityPhoto } from "@/components/public/city-photo"
 import { Rise } from "@/components/public/rise"
 import type { Metadata } from "next"
 import Link from "next/link"
@@ -38,6 +39,12 @@ export default function AboutPage() {
             the backend. This site shows them, and sends changes back.
           </p>
         </Rise>
+        <CityPhoto
+          src="/images/scene-lamp.jpg"
+          alt="A street lamp over a wet sidewalk at dusk. A photograph of a street, not a complaint on file."
+          sizes="(min-width: 1152px) 72rem, 100vw"
+          className="aspect-[16/7] rounded-[1.8rem]"
+        />
         <div className="grid gap-4 lg:grid-cols-3">
           {chapters.map((chapter, index) => (
             <article key={chapter.title} className="bg-card ring-foreground/10 rounded-[1.6rem] p-6 ring-1">

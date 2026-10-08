@@ -9,15 +9,9 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { publicLinks } from "@/components/layout/public-links"
 import { Landmark, Menu } from "lucide-react"
 import Link from "next/link"
-
-const links = [
-  { href: "/services", label: "Services" },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-]
 
 export function PublicHeader() {
   return (
@@ -30,7 +24,7 @@ export function PublicHeader() {
           <span className="font-heading text-2xl tracking-tight">CivicFix</span>
         </Link>
         <nav aria-label="Public" className="hidden items-center gap-6 md:flex">
-          {links.map((link) => (
+          {publicLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
@@ -64,7 +58,7 @@ export function PublicHeader() {
               <SheetTitle>CivicFix</SheetTitle>
             </SheetHeader>
             <nav aria-label="Mobile" className="flex flex-col gap-1 px-4">
-              {links.map((link) => (
+              {publicLinks.map((link) => (
                 <SheetClose key={link.href} asChild>
                   <Link
                     href={link.href}
@@ -93,5 +87,3 @@ export function PublicHeader() {
     </header>
   )
 }
-
-export const publicLinks = links

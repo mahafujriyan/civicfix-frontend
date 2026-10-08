@@ -1,4 +1,5 @@
-import { PublicHeader, publicLinks } from "@/components/layout/public-header"
+import { PublicHeader } from "@/components/layout/public-header"
+import { publicLinks } from "@/components/layout/public-links"
 import { Landmark } from "lucide-react"
 import Link from "next/link"
 import type { ReactNode } from "react"

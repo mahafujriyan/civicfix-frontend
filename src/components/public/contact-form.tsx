@@ -27,14 +27,21 @@ export function ContactForm() {
 
   return (
     <PublicShell>
-      <div className="mx-auto flex w-full max-w-xl flex-col gap-6 px-4 py-16 sm:px-6">
-        <PageHeader
-          eyebrow="Contact"
-          title="Write to the city desk"
-          description="The CivicFix API has no contact endpoint, so this form checks the message and does not pretend it was saved."
-        />
+      <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="flex flex-col gap-6">
+          <PageHeader
+            eyebrow="Contact"
+            title="Write to the city desk"
+            description="The CivicFix API has no contact endpoint, so this form checks the message and does not pretend it was saved."
+          />
+          <ul className="text-muted-foreground flex flex-col gap-3 text-sm leading-6">
+            <li>Include the street, the ward, and what you can see.</li>
+            <li>A complaint still needs an account. This note is not a case file.</li>
+            <li>Signed-in citizens file the real record from the dashboard.</li>
+          </ul>
+        </div>
         <form
-          className="flex flex-col gap-4"
+          className="bg-card ring-foreground/10 flex flex-col gap-4 rounded-[1.6rem] p-6 ring-1"
           onSubmit={form.handleSubmit(() => {
             toast.error(
               "No contact endpoint exists, so this message was not sent.",

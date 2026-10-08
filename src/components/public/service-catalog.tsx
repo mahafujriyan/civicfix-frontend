@@ -2,7 +2,6 @@
 
 import { PublicShell } from "@/components/layout/public-shell"
 import { ErrorState } from "@/components/shared/error-state"
-import { PageHeader } from "@/components/shared/page-header"
 import { Button } from "@/components/ui/button"
 import { useCategories } from "@/hooks/use-categories"
 import { errorMessage } from "@/lib/format"
@@ -16,12 +15,19 @@ export function ServiceCatalog() {
 
   return (
     <PublicShell>
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-16 sm:px-6">
-        <PageHeader
-          eyebrow="Services"
-          title="Active service categories"
-          description="This list is GET /categories with isActive=true. Empty means the API returned no active categories."
-        />
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 py-16 sm:px-6">
+        <div className="bg-sidebar text-sidebar-foreground rounded-[2rem] px-6 py-10 sm:px-10">
+          <p className="text-sidebar-primary text-sm font-medium tracking-[0.16em] uppercase">
+            Services
+          </p>
+          <h1 className="font-heading mt-3 max-w-2xl text-4xl tracking-tight sm:text-5xl">
+            The categories the city has marked active.
+          </h1>
+          <p className="text-sidebar-foreground/75 mt-4 max-w-xl text-sm leading-6">
+            This list is GET /categories with isActive=true. An empty page means
+            the API returned no active categories.
+          </p>
+        </div>
         {categories.isLoading ? (
           <p className="text-muted-foreground text-sm">Loading categories...</p>
         ) : null}

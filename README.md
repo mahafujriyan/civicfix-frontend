@@ -4,6 +4,8 @@ The public desk in front of the city complaint API. Citizens file a record. Staf
 
 This frontend is for the Programming Hero B7A7 assignment. It talks to the B7A6 API at `https://civicfix-backend-nine.vercel.app/api/v1`. Complaint totals, categories, and payments come from that API. Nothing on this site invents a live case.
 
+Full endpoint reference: [docs/API.md](docs/API.md). Live Swagger UI: [civicfix-backend-nine.vercel.app/api/docs](https://civicfix-backend-nine.vercel.app/api/docs).
+
 ## Stack
 
 | Layer | Choice |
